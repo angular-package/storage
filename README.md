@@ -257,9 +257,9 @@ public delete<Name extends AllowNames>(
 
 **Generic type variables:**
 
-| Name   | Default value         | Description |
-| :----- | :-------------------: | :---------- |
-| `Name` | [`string`][ts-string] | A generic type variable `Name` constrained by the generic type variable `AllowNames`, captured from the supplied `name` indicates the **name** under which element value is stored. |
+| Name   | Default value            | Description |
+| :----- | :----------------------: | :---------- |
+| `Name` | Captured from the `name` | A generic type variable `Name` constrained by the generic type variable `AllowNames`, by default of the value captured from the supplied `name` indicates the **name** under which element value is stored. |
 
 **Parameters:**
 
@@ -338,16 +338,17 @@ public get<Value = any, Name extends AllowNames = AllowNames>(
 
 **Generic type variables:**
 
-| Name   | Default value         | Description |
-| :----- | :-------------------: | :---------- |
-| `Name` | [`string`][ts-string] | A generic type variable `Name` constrained by the generic type variable `AllowNames`, captured from the supplied `name` indicates the **name** under which element value is picked from the [`storage`](#storage). |
+| Name    | Default value            | Description |
+| :------ | :----------------------: | :---------- |
+| `Value` | [`any`][ts-any]          | A generic type variable `Value` determines the type of the `value` parameter, by default of [`any`][ts-any] via the return type. |
+| `Name`  | Captured from the `name` | A generic type variable `Name` constrained by the generic type variable `AllowNames`, by default of the value captured from the supplied `name` indicates the **name** under which element value is picked from the [`storage`](#storage). |
 
 **Parameters:**
 
 | Name: type                        | Description |
 | :-------------------------------- | :---------- |
 | `name: Name`                      | The name of the generic type variable `Name` of the element to remove from the [`storage`](#storage). |
-| `callback?: ResultCallback<Name>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `check` is a [`string`][js-string] type. |
+| `callback?: ResultCallback<Name>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `name` is a [`string`][js-string] type. |
 
 **Returns:**
 
@@ -379,9 +380,9 @@ public has<Name extends AllowNames>(
 
 **Generic type variables:**
 
-| Name   | Default value         | Description |
-| :----- | :-------------------: | :---------- |
-| `Name` | [`string`][ts-string] | A generic type variable `Name` constrained by the generic type variable `AllowNames`, captured from the supplied `name` indicates the **name** under which element value is picked from the [`storage`](#storage). |
+| Name   | Default value            | Description |
+| :----- | :----------------------: | :---------- |
+| `Name` | Captured from the `name` | A generic type variable `Name` constrained by the generic type variable `AllowNames`, by default of the value captured from the supplied `name` indicates the **name** under which element value is picked from the [`storage`](#storage). |
 
 **Parameters:**
 
@@ -424,8 +425,8 @@ public set<Value = any, Name extends AllowNames = AllowNames>(
 
 | Name    | Default value             | Description |
 | :------ | :-----------------------: | :---------- |
-| `Value` | Captured from the `value` | A generic type variable `Value` determines the type of the `value` parameter, by default of value captured from the supplied `value`. |
-| `Name`  | [`string`][ts-string]     | A generic type variable `Name` constrained by the generic type variable `AllowNames`, captured from the supplied `name` indicates the **name** under which element value is stored. |
+| `Value` | Captured from the `value` | A generic type variable `Value` determines the type of the `value` parameter, by default of the value captured from the supplied `value`. |
+| `Name`  | Captured from the `name`  | A generic type variable `Name` constrained by the generic type variable `AllowNames`, by default of the value captured from the supplied `name` indicates the **name** under which element value is stored. |
 
 **Parameters:**
 
@@ -468,10 +469,10 @@ public setOfType<Value extends Type, Name extends AllowNames>(
 
 **Generic type variables:**
 
-| Name    | Default value               | Description |
-| :------ | :-------------------------: | :---------- |
-| `Value` | Captured from the `value`   | A generic type variable `Value` constrained by the generic type [`Type`][package-type-type] determines the type of the `value` parameter, by default of the value captured from the supplied `value`. |
-| `Name`  | [`Type`][package-type-type] | A generic type variable `Name` constrained by the generic type variable `AllowNames`, captured from the supplied `name` indicates the **name** under which element value is stored. |
+| Name    | Default value             | Description |
+| :------ | :-----------------------: | :---------- |
+| `Value` | Captured from the `value` | A generic type variable `Value` constrained by the generic type [`Type`][package-type-type] determines the type of the `value` parameter, by default of the value captured from the supplied `value`. |
+| `Name`  | Captured from the `name`  | A generic type variable `Name` constrained by the generic type variable `AllowNames`, by default of the value captured from the supplied `name` indicates the **name** under which element value is stored. |
 
 **Parameters:**
 
@@ -479,7 +480,7 @@ public setOfType<Value extends Type, Name extends AllowNames>(
 | :---------------------------------------- | :---------- |
 | `name: Name`                              | The name of the generic type variable `Name` under which the element is **added** to the [`storage`](#storage) or **updated** in the [`storage`](#storage). The value is checked against being an allowed name if the allowed names were provided. |
 | `value: Value`                            | The value of [`any`][ts-any] type to **add** to the [`storage`](#storage) or **update** in the [`storage`](#storage) under the given `name`. |
-| `type: Types<Value>`                      | The type of the generic type [`Types`][package-type-types] that takes the generic type variable `Value` to check against the given `value`. |
+| `type: Types<Value>`                      | The type of the generic type [`Types`][package-type-types] indicates against which type the given `value` is checked. |
 | `callback?: ResultCallback<Name | Value>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `name` is a [`string`][js-string] type. |
 
 **Returns:**
