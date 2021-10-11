@@ -135,6 +135,396 @@ import {
 
 ## `Storage`
 
+The storage of data under allowed names.
+
+**Instance public properties:**
+
+| Storage.prototype.                      | Description |
+| :-------------------------------------- | :---------- |
+| [`size: number`](#storageprototypesize) | The size accessor property returns the number of elements in [`storage`](#storage). |
+
+**Constructor:**
+
+| Constructor                         | Description |
+| :---------------------------------- | :---------- |
+| [`Storage()`](#storage-constructor) | Initializes an instance of [`Storage`](#storage) with optional allowed names under which values can be stored. |
+
+**Instance public methods:**
+
+| Storage.prototype.                            | Description |
+| :-------------------------------------------- | :---------- |
+| [`checkNames()`](#storageprototypechecknames) | The `checkNames()` method sets whether to check allowed names. |
+| [`clear()`](#storageprototypeclear)           | The `clear()` method removes all elements from the [`storage`](#storage). |
+| [`delete()`](#storageprototypedelete)         | The `delete()` method removes the element from the [`storage`](#storage) using the provided `name`. |
+| [`forEach()`](#storageprototypeforeach)       | The `forEach()` method executes a provided `function` once per each name/value pair in the [`storage`](#storage), in insertion order. |
+| [`get()`](#storageprototypeget)               | The `get()` method returns an element from the [`storage`](#storage) using the provided name. |
+| [`has()`](#storageprototypehas)               | The `has()` method returns a boolean indicating whether an element with the provided `name` exists. |
+| [`set()`](#storageprototypeset)               | The `set()` method adds or updates the value of the element under the given allowed name. |
+| [`setOfType()`](#storageprototypesetoftype)   | The `setOfType()` method adds or updates the element value of the type specified by the provided `type` under the given allowed `name`. |
+
+<br>
+
+### `Storage` instance public properties
+
+#### `Storage.size`
+
+The size accessor property returns the number of elements in storage.
+
+```typescript
+public get size(): number {
+  return super.size;
+}
+```
+
+<br>
+
+### `Storage` constructor
+
+#### `Storage()`
+
+Initializes an instance of [`Storage`](#storage) with optional allowed names under which values can be stored.
+
+```typescript
+// Syntax.
+constructor(...allowNames: AllowNames[]) {
+  super();
+  this.#allowedName = new AllowedName(...allowNames);
+}
+```
+
+**Parameters:**
+
+| Name: type                    | Description |
+| :---------------------------- | :---------- |
+| `...allowNames: AllowNames[]` | An optional [rest parameter][js-rest-parameter] of allowed names of [`string`][js-string] type, under which values can be stored. Only those names given by this parameter are being checked by the public [`isNameAllowed()`](#allowednameprototypeisnameallowed) of the [`AllowedName`](#allowedname) method and the check was not **disabled** by the [`checkNames()`](#storageprototypechecknames) method. |
+
+**Returns:**
+
+The **return value** is an instance of [`Storage`](#storage).
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { Storage } from '@angular-package/storage';
+
+```
+
+<br>
+
+### `Storage` instance public methods
+
+#### `Storage.prototype.checkNames()`
+
+The `checkNames()` method sets whether to check allowed names.
+
+```typescript
+// Syntax.
+public checkNames(check: Check, callback?: ResultCallback<Check>): this {
+  this.#allowedName.checkNames(check, callback);
+  return this;
+}
+```
+
+**Parameters:**
+
+| Name: type                         | Description |
+| :--------------------------------- | :---------- |
+| `check: Check`                     | The value of enum `Check` type to set, where `Yes` is equal to `1`, and `No` to `0`. |
+| `callback?: ResultCallback<Check>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `check` is an [`enum`][ts-enums] of `Check`. |
+
+**Returns:**
+
+The **return value** is an instance of [`Storage`](#storage).
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { Storage } from '@angular-package/storage';
+
+```
+
+<br>
+
+#### `Storage.prototype.clear()`
+
+The `clear()` method removes all elements from the [`storage`](#storage).
+
+```typescript
+// Syntax.
+public clear(): this {
+  super.clear();
+  return this;
+}
+```
+
+**Returns:**
+
+The **return value** is an instance of [`Storage`](#storage).
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { Storage } from '@angular-package/storage';
+
+```
+
+<br>
+
+#### `Storage.prototype.delete()`
+
+The `delete()` method removes the element from the [`storage`](#storage) using the provided `name`.
+
+```typescript
+// Syntax.
+public delete<Name extends AllowNames>(
+  name: Name,
+  callback?: ResultCallback<Name>
+): boolean {
+  return guardString(name, callback) ? super.delete(name) : false;
+}
+```
+
+**Generic type variables:**
+
+| Name   | Default value         | Description |
+| :----- | :-------------------: | :---------- |
+| `Name` | [`string`][ts-string] | A generic type variable `Name` constrained by the generic type variable `AllowNames`, captured from the supplied `name` indicates the **name** under which element value is stored. |
+
+**Parameters:**
+
+| Name: type                        | Description |
+| :-------------------------------- | :---------- |
+| `name: Name`                      | The name of the generic type variable `Name` of the element to remove from the [`storage`](#storage). |
+| `callback?: ResultCallback<Name>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `check` is a [`string`][js-string] type. |
+
+**Returns:**
+
+The **return value** is a [`boolean`][js-boolean] if an element in the [`storage`](#storage) existed and has been removed or `false` if the element did not exist or the given name was not a [`string`][js-string] type.
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { Storage } from '@angular-package/storage';
+
+```
+
+<br>
+
+#### `Storage.prototype.forEach()`
+
+The `forEach()` method executes a provided [`function`][js-function] once per each name/value pair in the [`storage`](#storage), in insertion order.
+
+```typescript
+// Syntax.
+public forEach(
+  forEach: (
+    value: any,
+    name: AllowNames,
+    storage: Storage<AllowNames>
+  ) => void,
+  callback?: ResultCallback<Function>
+): this {
+  guardFunction(forEach, callback) && super.forEach(forEach as any);
+  return this;
+}
+```
+
+**Parameters:**
+
+| Name: type                            | Description |
+| :------------------------------------ | :---------- |
+| `forEach: Function`                   | The callback [`function`][js-function] to execute for each entry in the storage, that takes the `value` and the `name` of each iterated element and [`storage`](#storage) being iterated. |
+| `callback?: ResultCallback<Function>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the result of the check whether the provided `forEach` is the [`function`][js-function]. |
+
+**Returns:**
+
+The **return value** is an instance of [`Storage`](#storage).
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { Storage } from '@angular-package/storage';
+
+```
+
+<br>
+
+#### `Storage.prototype.get()`
+
+The `get()` method returns an element from the [`storage`](#storage) using the provided `name`.
+
+```typescript
+// Syntax.
+public get<Value = any, Name extends AllowNames = AllowNames>(
+  name: Name,
+  callback?: ResultCallback<Name>
+): Value {
+  return guardString(name, callback) && super.get(name);
+}
+```
+
+**Generic type variables:**
+
+| Name   | Default value         | Description |
+| :----- | :-------------------: | :---------- |
+| `Name` | [`string`][ts-string] | A generic type variable `Name` constrained by the generic type variable `AllowNames`, captured from the supplied `name` indicates the **name** under which element value is picked from the [`storage`](#storage). |
+
+**Parameters:**
+
+| Name: type                        | Description |
+| :-------------------------------- | :---------- |
+| `name: Name`                      | The name of the generic type variable `Name` of the element to remove from the [`storage`](#storage). |
+| `callback?: ResultCallback<Name>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `check` is a [`string`][js-string] type. |
+
+**Returns:**
+
+The **return value** is an instance of [`Storage`](#storage).
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { Storage } from '@angular-package/storage';
+
+```
+
+<br>
+
+#### `Storage.prototype.has()`
+
+The `has()` method returns a [`boolean`][js-boolean] indicating whether an element with the provided `name` exists.
+
+```typescript
+// Syntax.
+public has<Name extends AllowNames>(
+  name: Name,
+  callback?: ResultCallback<Name>
+): boolean {
+  return guardString(name, callback) && super.has(name);
+}
+```
+
+**Generic type variables:**
+
+| Name   | Default value         | Description |
+| :----- | :-------------------: | :---------- |
+| `Name` | [`string`][ts-string] | A generic type variable `Name` constrained by the generic type variable `AllowNames`, captured from the supplied `name` indicates the **name** under which element value is picked from the [`storage`](#storage). |
+
+**Parameters:**
+
+| Name: type                        | Description |
+| :-------------------------------- | :---------- |
+| `name: Name`                      | The name of the generic type variable `Name` of the element to check for presence in the [`storage`](#storage). |
+| `callback?: ResultCallback<Name>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `name` is a [`string`][js-string] type. |
+
+**Returns:**
+
+The return value is a [`boolean`][js-boolean] indicating whether the element of the provided `name` exists in the [`storage`](#storage).
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { Storage } from '@angular-package/storage';
+
+```
+
+<br>
+
+#### `Storage.prototype.set()`
+
+The `set()` method **adds** or **updates** the `value` of the element under the given allowed `name`.
+
+```typescript
+// Syntax.
+public set<Value = any, Name extends AllowNames = AllowNames>(
+  name: Name,
+  value: Value,
+  callback?: ResultCallback<Name>
+): this {
+  this.#allowedName.isNameAllowed(name, callback) && super.set(name, value);
+  return this;
+}
+```
+
+**Generic type variables:**
+
+| Name    | Default value             | Description |
+| :------ | :-----------------------: | :---------- |
+| `Value` | Captured from the `value` | A generic type variable `Value` determines the type of the `value` parameter, by default of value captured from the supplied `value`. |
+| `Name`  | [`string`][ts-string]     | A generic type variable `Name` constrained by the generic type variable `AllowNames`, captured from the supplied `name` indicates the **name** under which element value is stored. |
+
+**Parameters:**
+
+| Name: type                        | Description |
+| :-------------------------------- | :---------- |
+| `name: Name`                      | The name of the generic type variable `Name` under which the element is **added** to the [`storage`](#storage) or **updated** in the [`storage`](#storage). The value is checked against being an allowed name if the allowed names were provided. |
+| `value: Value`                    | The value of [`any`][ts-any] type to **add** to the [`storage`](#storage) or **update** in the [`storage`](#storage) under the given `name`. |
+| `callback?: ResultCallback<Name>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `name` is a [`string`][js-string] type. |
+
+**Returns:**
+
+The **return value** is an instance of [`Storage`](#storage).
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { Storage } from '@angular-package/storage';
+
+```
+
+<br>
+
+#### `Storage.prototype.setOfType()`
+
+The `setOfType()` method **adds** or **updates** the element `value` of the type specified by the provided `type` under the given allowed `name`.
+
+```typescript
+// Syntax.
+public setOfType<Value extends Type, Name extends AllowNames>(
+  name: Name,
+  value: Value,
+  type: Types<Value>,
+  callback?: ResultCallback<Name | Value>
+): this {
+  this._setOfType(name, value, type, callback);
+  return this;
+}
+```
+
+**Generic type variables:**
+
+| Name    | Default value               | Description |
+| :------ | :-------------------------: | :---------- |
+| `Value` | Captured from the `value`   | A generic type variable `Value` constrained by the generic type [`Type`][package-type-type] determines the type of the `value` parameter, by default of the value captured from the supplied `value`. |
+| `Name`  | [`Type`][package-type-type] | A generic type variable `Name` constrained by the generic type variable `AllowNames`, captured from the supplied `name` indicates the **name** under which element value is stored. |
+
+**Parameters:**
+
+| Name: type                                | Description |
+| :---------------------------------------- | :---------- |
+| `name: Name`                              | The name of the generic type variable `Name` under which the element is **added** to the [`storage`](#storage) or **updated** in the [`storage`](#storage). The value is checked against being an allowed name if the allowed names were provided. |
+| `value: Value`                            | The value of [`any`][ts-any] type to **add** to the [`storage`](#storage) or **update** in the [`storage`](#storage) under the given `name`. |
+| `type: Types<Value>`                      | The type of the generic type [`Types`][package-type-types] that takes the generic type variable `Value` to check against the given `value`. |
+| `callback?: ResultCallback<Name | Value>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `name` is a [`string`][js-string] type. |
+
+**Returns:**
+
+The **return value** is an instance of [`Storage`](#storage).
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { Storage } from '@angular-package/storage';
+
+```
 
 <br>
 
@@ -336,6 +726,8 @@ MIT © angular-package ([license][storage-license])
   [package-type-valueparser]: https://github.com/angular-package/type#valueparser
   [package-type-key]: https://github.com/angular-package/type#key
   [package-type-resultcallback]: https://github.com/angular-package/type#resultcallback
+  [package-type-type]: https://github.com/angular-package/type#type
+  [package-type-types]: https://github.com/angular-package/type#types
 
 <!-- Package: ui -->
   <!-- npm -->
@@ -374,7 +766,7 @@ MIT © angular-package ([license][storage-license])
 [js-error]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
 
 [js-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions
-[js-function-rest-parameter]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
+[js-rest-parameter]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
 
 [js-getter]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
 [js-object-getownpropertydescriptor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor
@@ -429,6 +821,7 @@ MIT © angular-package ([license][storage-license])
 [ts-any]: https://www.typescriptlang.org/docs/handbook/basic-types.html#any
 [ts-boolean]: https://www.typescriptlang.org/docs/handbook/basic-types.html#boolean
 [ts-classes]: https://www.typescriptlang.org/docs/handbook/2/classes.html
+[ts-enums]: https://www.typescriptlang.org/docs/handbook/enums.html
 [ts-function]: https://www.typescriptlang.org/docs/handbook/2/functions.html
 [ts-interface]: https://www.typescriptlang.org/docs/handbook/interfaces.html#our-first-interface
 [ts-never]: https://www.typescriptlang.org/docs/handbook/basic-types.html#never
