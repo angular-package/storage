@@ -411,7 +411,7 @@ The `set()` method **adds** or **updates** the `value` of the element under the 
 
 ```typescript
 // Syntax.
-public set<Value = any, Name extends AllowNames = AllowNames>(
+public set<Value, Name extends AllowNames>(
   name: Name,
   value: Value,
   callback?: ResultCallback<Name>
@@ -476,12 +476,12 @@ public setOfType<Value extends Type, Name extends AllowNames>(
 
 **Parameters:**
 
-| Name: type                                | Description |
-| :---------------------------------------- | :---------- |
-| `name: Name`                              | The name of the generic type variable `Name` under which the element is **added** to the [`storage`](#storage) or **updated** in the [`storage`](#storage). The value is checked against being an allowed name if the allowed names were provided. |
-| `value: Value`                            | The value of [`any`][ts-any] type to **add** to the [`storage`](#storage) or **update** in the [`storage`](#storage) under the given `name`. |
-| `type: Types<Value>`                      | The type of the generic type [`Types`][package-type-types] indicates against which type the given `value` is checked. |
-| `callback?: ResultCallback<Name | Value>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `name` is a [`string`][js-string] type. |
+| Name: type                                 | Description |
+| :----------------------------------------- | :---------- |
+| `name: Name`                               | The name of the generic type variable `Name` under which the element is **added** to the [`storage`](#storage) or **updated** in the [`storage`](#storage). The value is checked against being an allowed name if the allowed names were provided. |
+| `value: Value`                             | The element value of the given `type` to **add** to the storage or **update** in the storage, under the given `name`. |
+| `type: Types<Value>`                       | The type of the generic type [`Types`][package-type-types] indicates against which type the given `value` is checked. |
+| `callback?: ResultCallback<Name \| Value>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the result of the check whether the provided `value` is the type of the given `type` and the `name` is the allowed name under which the provided `value` can be stored. |
 
 **Returns:**
 
