@@ -157,11 +157,11 @@ The storage of data under allowed names.
 | :-------------------------------------------- | :---------- |
 | [`clear()`](#storageprototypeclear)           | The `clear()` method removes all elements from the [`storage`](#storage). |
 | [`delete()`](#storageprototypedelete)         | The `delete()` method removes the element from the [`storage`](#storage) using the provided `name`. |
-| [`forEach()`](#storageprototypeforeach)       | The `forEach()` method executes a provided `function` once per each name/value pair in the [`storage`](#storage), in insertion order. |
-| [`get()`](#storageprototypeget)               | The `get()` method returns an element from the [`storage`](#storage) using the provided name. |
-| [`has()`](#storageprototypehas)               | The `has()` method returns a boolean indicating whether an element with the provided `name` exists. |
-| [`set()`](#storageprototypeset)               | The `set()` method adds or updates the value of the element under the given allowed name. |
-| [`setOfType()`](#storageprototypesetoftype)   | The `setOfType()` method adds or updates the element value of the type specified by the provided `type` under the given allowed `name`. |
+| [`forEach()`](#storageprototypeforeach)       | The `forEach()` method executes a provided [`function`][js-function] once per each name/value pair in the [`storage`](#storage), in insertion order. |
+| [`get()`](#storageprototypeget)               | The `get()` method returns an element from the [`storage`](#storage) using the provided `name`. |
+| [`has()`](#storageprototypehas)               | The `has()` method returns a [`boolean`][js-boolean] indicating whether an element with the provided `name` exists. |
+| [`set()`](#storageprototypeset)               | The `set()` method **adds** or **updates** the `value` of the element under the given allowed `name`. |
+| [`setOfType()`](#storageprototypesetoftype)   | The `setOfType()` method **adds** or **updates** the element `value` of the type specified by the provided `type` under the given allowed `name`. |
 
 <br>
 
