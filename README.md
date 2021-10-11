@@ -137,6 +137,8 @@ import {
 
 The storage of data under allowed names.
 
+<br>
+
 **Instance public properties:**
 
 | Storage.prototype.                      | Description |
@@ -153,7 +155,6 @@ The storage of data under allowed names.
 
 | Storage.prototype.                            | Description |
 | :-------------------------------------------- | :---------- |
-| [`checkNames()`](#storageprototypechecknames) | The `checkNames()` method sets whether to check allowed names. |
 | [`clear()`](#storageprototypeclear)           | The `clear()` method removes all elements from the [`storage`](#storage). |
 | [`delete()`](#storageprototypedelete)         | The `delete()` method removes the element from the [`storage`](#storage) using the provided `name`. |
 | [`forEach()`](#storageprototypeforeach)       | The `forEach()` method executes a provided `function` once per each name/value pair in the [`storage`](#storage), in insertion order. |
@@ -166,7 +167,7 @@ The storage of data under allowed names.
 
 ### `Storage` instance public properties
 
-#### `Storage.size`
+#### `Storage.prototype.size`
 
 The size accessor property returns the number of elements in storage.
 
@@ -213,39 +214,6 @@ import { Storage } from '@angular-package/storage';
 <br>
 
 ### `Storage` instance public methods
-
-#### `Storage.prototype.checkNames()`
-
-The `checkNames()` method sets whether to check allowed names.
-
-```typescript
-// Syntax.
-public checkNames(check: Check, callback?: ResultCallback<Check>): this {
-  this.#allowedName.checkNames(check, callback);
-  return this;
-}
-```
-
-**Parameters:**
-
-| Name: type                         | Description |
-| :--------------------------------- | :---------- |
-| `check: Check`                     | The value of enum `Check` type to set, where `Yes` is equal to `1`, and `No` to `0`. |
-| `callback?: ResultCallback<Check>` | An optional callback [`function`][js-function] of [`ResultCallback`][package-callback-resultcallback] type to handle the check whether the provided `check` is an [`enum`][ts-enums] of `Check`. |
-
-**Returns:**
-
-The **return value** is an instance of [`Storage`](#storage).
-
-**Usage:**
-
-```typescript
-// Example usage.
-import { Storage } from '@angular-package/storage';
-
-```
-
-<br>
 
 #### `Storage.prototype.clear()`
 
